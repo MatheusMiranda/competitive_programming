@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <string>
+
+using namespace std;
+using par = pair<int,int>;
+vector<int> vet;
+vector<string> ps;
+int n,m;
+
+bool ver(){
+    int num = 0;
+    int low = 0;
+    int esp = 0;
+    char a;
+    for(int i = 0;i < m;++i){
+      a = ps[i][vet[i]];
+      if(!isalpha(a)) num++;
+      else if(a == '#' || a == '*' || a == '&') esp++;
+      else if(isalpha(a) && islower(a))low++;
+    } 
+
+    if(num && low && esp) return true;
+    else return false;
+}  
+
+int contador = 0;
+bool achou = false;
+bool t;
+
+void acha(){
+    
+    if(achou) return;
+
+    t = ver();
+    if(t){
+       cout << contador << endl;
+       achou = true;
+       return;
+    }else{
+        cout << "Entrou " << endl;
+        for(int i = 0;i < n;++i){
+             int lef = --vet[i];
+             int rig = ++vet[i];
+             if(lef == -1) lef = m - 1;
+             if(rig == m) rig = 0;
+             vet[i] = lef;
+             acha();
+             vet[i] = rig;
+             acha();
+        }
+
+    }  
+}  
+
+int main(){
+
+  string p;
+  
+  cin >> n >> m;
+  int a=  n;
+  while(a--){
+    cin >> p;
+    ps.push_back(p);
+  }
+  cout << "Ps " << ps.size() << endl; 
+  acha();
+
+  return 0;
+}
