@@ -19,12 +19,26 @@ bool check(ll x, ll val){
 
 
 int main(){
-  ll n;
-  scanf("%lld",&n);
+  ll n,a;
+  scanf("%lld",&a);
+  int contador = 0;
 
-  if(n < 0) n*=-1;
-  ll ini = sqrt()
-  
+  while(a--){
+    scanf("%lld",&n);
+
+    if(n < 0) n*=-1;
+    ll res = 0;
+    ll soma = 0;
+
+    while(soma < n || !check(n,soma)){
+      res++;
+      soma = sum(res);
+    }
+    
+    if(n == 0) res = 3;
+    if(contador++) printf("\n");
+    printf("%lld\n",res);
+  }
  
   return 0;
 }
