@@ -16,8 +16,8 @@ int main(){
     cin >> p1 >> p2;
   
     for(int i  =0;i < p1.size();++i){
-      cont += abs(p1[i] - p2[i]);
-      cout << cont << endl;
+      if(p1[i] <= p2[i]) cont += abs(p1[i] - p2[i]);
+      else cont += ((26 - p1[i]) + p2[i]);
     }
 
     cout << cont << endl;
