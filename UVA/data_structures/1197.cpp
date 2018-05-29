@@ -3,25 +3,25 @@
 using namespace std;
 #define MAX 30005
 int ranks[MAX];
-int pais[MAX];
+int parents[MAX];
 
 vector<int> vet;
 
-int find_pai(int n){
-  if(n == pais[n]) return n;
-  else return pais[n] = find_pai(pais[n]);
+int find_parent(int n){
+  if(n == parents[n]) return n;
+  else return parents[n] = find_parent(parents[n]);
 }
 
 void make_union(int a,int b){
-  int pa = find_pai(a);
-  int pb = find_pai(b);
+  int pa = find_parent(a);
+  int pb = find_parent(b);
 
   if(pa == pb) return;
   if(ranks[pa] >= ranks[pb]){
-    pais[pb] = pa;
+    parents[pb] = pa;
     ranks[pa] += ranks[pb];
   }else{
-    pais[pa] = pb;
+    parents[pa] = pb;
     ranks[pb] += ranks[pa];
   }
 }
@@ -31,7 +31,7 @@ int main(){
 
   while(cin >> n >> m, n | m){
     for(int i = 0;i < MAX;++i){
-      pais[i] = i;
+      parents[i] = i;
     }
     for(int i = 0;i < MAX;++i){
       ranks[i] = 1;
@@ -52,9 +52,9 @@ int main(){
     }
 
     int cont = 0;
-    int resp = find_pai(0);
+    int resp = find_parent(0);
     for(int i = 0;i < n;++i){
-      if(find_pai(i) == resp)cont++;
+      if(find_parent(i) == resp)cont++;
     }
     cout << cont << endl;
   }
