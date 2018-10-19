@@ -1,41 +1,54 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <map>
+#include <bits/stdc++.h>
 
 using namespace std;
-using par = pair<int,int>;
 
-map<int,par> dic;
-
+int pos[100090];
+int per[100090];
+vector<int> vet2;
 
 int main(){
-
   int n,a;
+
   cin >> n;
 
-  for(int i = 0;i < n;++i){
+  memset(per, -1, sizeof per);
+
+  while(n--){
     cin >> a; 
-    if(dic[a].first == 0){
-      dic[a].first = -1;
-      dic[a].second = i;
-    }  
-    else if(dic[a].first == -1){
-      dic[a].first = 2;
-      dic[a].second = i - dic[a].second;
-    }else{
-      int comp = dic[a].second;
-      dic[a].second = i -dic[a].second;
-      if(comp != dic[a].second) dic[a]
-    }  
+    vet2.push_back(a);
   }
 
-  cout << dic.size() << endl;
+  int cont = 0;
 
-  for(auto el : dic){
-    if(el.second.first == -1) el.second.second = 0;
-    cout << el.first << " " << el.second.second << endl;
-  }  
+  for(int i = 1;i <= vet2.size();++i){
+    int period = i - pos[vet2[i-1]];
+
+    if(per[vet2[i-1]] == -1){
+       per[vet2[i-1]] = 0;
+    }
+    else if(per[vet2[i-1]] == 0){
+       per[vet2[i-1]] = period;
+    }
+    else{
+      if(per[vet2[i-1]] != period) per[vet2[i-1]] = -3; 
+    }
+  
+    pos[vet2[i-1]] = i;
+  }
+
+  for(int i = 1;i <= 100005;++i){
+    if(per[i] != -1 && per[i] != -3){
+      cont++;
+    } 
+  }
+
+  printf("%d\n",cont);
+
+  for(int i = 1;i <= 100005;++i){
+    if(per[i] != -1 && per[i] != -3){
+      printf("%d %d\n",i,per[i]);
+    } 
+  }
 
   return 0;
 }
